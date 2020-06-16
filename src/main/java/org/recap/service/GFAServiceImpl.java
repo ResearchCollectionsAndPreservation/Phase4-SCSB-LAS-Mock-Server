@@ -45,6 +45,37 @@ public class GFAServiceImpl implements GFAService{
         }
         return itemStatusCheckResponse;
     }
+
+    @Override
+    public GFAPwdResponse gfaPermanentWithdrawlDirect(GFAPwdRequest gfaPwdRequest) {
+
+        GFAPwdResponse gfaPwdResponse = new GFAPwdResponse();
+        GFAPwdTtItemRequest gfaPwdTtItemRequest = gfaPwdRequest.getDsitem().getTtitem().get(0);
+        GFAPwdTtItemResponse gfaPwdTtItemResponse = new GFAPwdTtItemResponse();
+        gfaPwdTtItemResponse.setCustomerCode(gfaPwdTtItemRequest.getCustomerCode());
+        gfaPwdTtItemResponse.setDestination(gfaPwdTtItemRequest.getDestination());
+        gfaPwdTtItemResponse.setItemBarcode(gfaPwdTtItemRequest.getItemBarcode());
+        gfaPwdTtItemResponse.setRequestor(gfaPwdTtItemRequest.getRequestor());
+        GFAPwdDsItemResponse gfaPwdDsItemResponse = new GFAPwdDsItemResponse();
+        gfaPwdDsItemResponse.setTtitem(Arrays.asList(gfaPwdTtItemResponse));
+        gfaPwdResponse.setDsitem(gfaPwdDsItemResponse);
+        return gfaPwdResponse;
+    }
+
+    @Override
+    public GFAPwiResponse gfaPermanentWithdrawlInDirect(GFAPwiRequest gfaPwiRequest) {
+
+        GFAPwiResponse gfaPwiResponse = new GFAPwiResponse();
+        GFAPwiTtItemRequest gfaPwiTtItemRequest = gfaPwiRequest.getDsitem().getTtitem().get(0);
+        GFAPwiTtItemResponse gfaPwiTtItemResponse = new GFAPwiTtItemResponse();
+        gfaPwiTtItemResponse.setItemBarcode(gfaPwiTtItemRequest.getItemBarcode());
+        gfaPwiTtItemResponse.setCustomerCode(gfaPwiTtItemRequest.getCustomerCode());
+        GFAPwiDsItemResponse gfaPwiDsItemResponse = new GFAPwiDsItemResponse();
+        gfaPwiDsItemResponse.setTtitem(Arrays.asList(gfaPwiTtItemResponse));
+        gfaPwiResponse.setDsitem(gfaPwiDsItemResponse);
+        return gfaPwiResponse;
+    }
+
     public ItemInformationRequest processLASRetrieveRequest(String body) {
         ItemInformationRequest itemInformationRequest = new ItemInformationRequest();
         LasRequestItemT lasRequestItemT = new LasRequestItemT();
@@ -88,13 +119,6 @@ public class GFAServiceImpl implements GFAService{
             e.printStackTrace();
         }
         return itemInformationRequest;
-    }
-
-    private String DateFormat(){
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        String strDate= formatter.format(date);
-        return strDate;
     }
 
 }
