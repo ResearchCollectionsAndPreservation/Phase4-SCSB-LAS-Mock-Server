@@ -3,7 +3,7 @@ package org.recap.model;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "las_request_item_t")
+@Table(name = "LAS_REQUEST_ITEM_T", schema = "recaplas", catalog = "recaplas")
 public class LasRequestItemT {
     @Id
     @Column
