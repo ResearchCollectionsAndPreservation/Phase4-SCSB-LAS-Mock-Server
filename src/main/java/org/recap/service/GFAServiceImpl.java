@@ -45,6 +45,37 @@ public class GFAServiceImpl implements GFAService{
         }
         return itemStatusCheckResponse;
     }
+
+    @Override
+    public GFAPwdResponse gfaPermanentWithdrawlDirect(GFAPwdRequest gfaPwdRequest) {
+
+        GFAPwdResponse gfaPwdResponse = new GFAPwdResponse();
+        GFAPwdTtItemRequest gfaPwdTtItemRequest = gfaPwdRequest.getDsitem().getTtitem().get(0);
+        GFAPwdTtItemResponse gfaPwdTtItemResponse = new GFAPwdTtItemResponse();
+        gfaPwdTtItemResponse.setCustomerCode(gfaPwdTtItemRequest.getCustomerCode());
+        gfaPwdTtItemResponse.setDestination(gfaPwdTtItemRequest.getDestination());
+        gfaPwdTtItemResponse.setItemBarcode(gfaPwdTtItemRequest.getItemBarcode());
+        gfaPwdTtItemResponse.setRequestor(gfaPwdTtItemRequest.getRequestor());
+        GFAPwdDsItemResponse gfaPwdDsItemResponse = new GFAPwdDsItemResponse();
+        gfaPwdDsItemResponse.setTtitem(Arrays.asList(gfaPwdTtItemResponse));
+        gfaPwdResponse.setDsitem(gfaPwdDsItemResponse);
+        return gfaPwdResponse;
+    }
+
+    @Override
+    public GFAPwiResponse gfaPermanentWithdrawlInDirect(GFAPwiRequest gfaPwiRequest) {
+
+        GFAPwiResponse gfaPwiResponse = new GFAPwiResponse();
+        GFAPwiTtItemRequest gfaPwiTtItemRequest = gfaPwiRequest.getDsitem().getTtitem().get(0);
+        GFAPwiTtItemResponse gfaPwiTtItemResponse = new GFAPwiTtItemResponse();
+        gfaPwiTtItemResponse.setItemBarcode(gfaPwiTtItemRequest.getItemBarcode());
+        gfaPwiTtItemResponse.setCustomerCode(gfaPwiTtItemRequest.getCustomerCode());
+        GFAPwiDsItemResponse gfaPwiDsItemResponse = new GFAPwiDsItemResponse();
+        gfaPwiDsItemResponse.setTtitem(Arrays.asList(gfaPwiTtItemResponse));
+        gfaPwiResponse.setDsitem(gfaPwiDsItemResponse);
+        return gfaPwiResponse;
+    }
+
     public ItemInformationRequest processLASRetrieveRequest(String body) {
         ItemInformationRequest itemInformationRequest = new ItemInformationRequest();
         LasRequestItemT lasRequestItemT = new LasRequestItemT();
@@ -53,20 +84,36 @@ public class GFAServiceImpl implements GFAService{
         try {
             GFARetrieveItemRequest gfaRetrieveItemRequest = objectMapper.readValue(body, GFARetrieveItemRequest.class);
             GFARetrieveItemResponse gfaRetrieveItemResponse = new GFARetrieveItemResponse();
+            RetrieveItem retrieveItem = new RetrieveItem();
+            Ttitem ttitem = new Ttitem();
+            ttitem.setItemBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
+            ttitem.setRequestId(Integer.parseInt(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestId()));
+            ttitem.setCustomerCode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getCustomerCode());
+            ttitem.setItemStatus(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemStatus());
+            ttitem.setDestination(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getDestination());
+            ttitem.setRequestor(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestor());
+            retrieveItem.setTtitem(Arrays.asList(ttitem));
+            gfaRetrieveItemResponse.setRetrieveItem(retrieveItem);
             gfaRetrieveItemResponse.setSuccess(true);
+            gfaRetrieveItemResponse.setScrenMessage("Las Processed Request Successfully");
             String responseJson = objectMapper.writeValueAsString(gfaRetrieveItemResponse);
-            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
-            lasRequestItemT.setCreatedDate(new Date());
+            lasRequestItemT.setCreatedDate(DateFormat());
             lasRequestItemT.setRequestStatus("SUCCESS");
             lasRequestItemT.setScsbRequestId(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestId());
             lasRequestItemT.setBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
             lasRequestItemTRepository.save(lasRequestItemT);
-            if (lasItemTRepository.findByBarcode(itemInformationRequest.getPatronBarcode())==null)
+            if (lasItemTRepository.findByBarcode(itemInformationRequest.getPatronBarcode())!=null)
             {
+                lasItemT.setStatus("OUT");
+            }
+            else {
                 lasItemT.setBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
                 lasItemT.setStatus("OUT");
                 lasItemTRepository.save(lasItemT);
             }
+
+            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
