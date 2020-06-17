@@ -20,7 +20,7 @@ public class LasRequestItemT {
     private String requestStatus;
 
     @Column
-    private Date createdDate;
+    private String createdDate;
 
     public LasRequestItemT() {
     }
@@ -57,11 +57,11 @@ public class LasRequestItemT {
         this.requestStatus = requestStatus;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 }
