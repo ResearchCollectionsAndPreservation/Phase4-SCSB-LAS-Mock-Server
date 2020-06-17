@@ -84,20 +84,36 @@ public class GFAServiceImpl implements GFAService{
         try {
             GFARetrieveItemRequest gfaRetrieveItemRequest = objectMapper.readValue(body, GFARetrieveItemRequest.class);
             GFARetrieveItemResponse gfaRetrieveItemResponse = new GFARetrieveItemResponse();
+            RetrieveItem retrieveItem = new RetrieveItem();
+            Ttitem ttitem = new Ttitem();
+            ttitem.setItemBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
+            ttitem.setRequestId(Integer.parseInt(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestId()));
+            ttitem.setCustomerCode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getCustomerCode());
+            ttitem.setItemStatus(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemStatus());
+            ttitem.setDestination(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getDestination());
+            ttitem.setRequestor(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestor());
+            retrieveItem.setTtitem(Arrays.asList(ttitem));
+            gfaRetrieveItemResponse.setRetrieveItem(retrieveItem);
             gfaRetrieveItemResponse.setSuccess(true);
+            gfaRetrieveItemResponse.setScrenMessage("Las Processed Request Successfully");
             String responseJson = objectMapper.writeValueAsString(gfaRetrieveItemResponse);
-            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
-            lasRequestItemT.setCreatedDate(new Date());
+            lasRequestItemT.setCreatedDate(DateFormat());
             lasRequestItemT.setRequestStatus("SUCCESS");
             lasRequestItemT.setScsbRequestId(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestId());
             lasRequestItemT.setBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
             lasRequestItemTRepository.save(lasRequestItemT);
-            if (lasItemTRepository.findByBarcode(itemInformationRequest.getPatronBarcode())==null)
+            if (lasItemTRepository.findByBarcode(itemInformationRequest.getPatronBarcode())!=null)
             {
+                lasItemT.setStatus("OUT");
+            }
+            else {
                 lasItemT.setBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
                 lasItemT.setStatus("OUT");
                 lasItemTRepository.save(lasItemT);
             }
+
+            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,6 +135,13 @@ public class GFAServiceImpl implements GFAService{
             e.printStackTrace();
         }
         return itemInformationRequest;
+    }
+
+    private String DateFormat(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        String strDate= formatter.format(date);
+        return strDate;
     }
 
 }
