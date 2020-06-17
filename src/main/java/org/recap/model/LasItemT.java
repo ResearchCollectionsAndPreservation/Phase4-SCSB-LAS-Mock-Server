@@ -3,7 +3,7 @@ package org.recap.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "las_item_t")
+@Table(name = "LAS_ITEM_T", schema = "recaplas", catalog = "recaplas")
 public class LasItemT {
     @Id
     @Column
