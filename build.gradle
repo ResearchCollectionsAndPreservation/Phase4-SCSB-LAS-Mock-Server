@@ -27,7 +27,7 @@ test {
 }
 
 jar {
-	archivesBaseName = 'phase4-scsb-circ'
+	archivesBaseName = 'phase4-scsb-las-mock-server'
 	archiveVersion = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.11
@@ -94,6 +94,6 @@ task scsbCircJavadocs(type: Javadoc) {
 	classpath = configurations.compile
 	options.addStringOption('Xdoclint:none', '-quiet')
 	String home = System.getProperty("user.home");
-	destinationDir = new File(home+"/scsb-javadocs/scsb-circ");
+	destinationDir = new File(home+"/scsb-javadocs/phase4-scsb-las-mock-server");
 
 }
