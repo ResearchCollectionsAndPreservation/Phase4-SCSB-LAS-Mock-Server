@@ -97,7 +97,7 @@ public class GFAServiceImpl implements GFAService{
             gfaRetrieveItemResponse.setSuccess(true);
             gfaRetrieveItemResponse.setScrenMessage("Las Processed Request Successfully");
             String responseJson = objectMapper.writeValueAsString(gfaRetrieveItemResponse);
-            lasRequestItemT.setCreatedDate(DateFormat());
+            lasRequestItemT.setCreatedDate(new Date());
             lasRequestItemT.setRequestStatus("SUCCESS");
             lasRequestItemT.setScsbRequestId(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getRequestId());
             lasRequestItemT.setBarcode(gfaRetrieveItemRequest.getRetrieveItem().getTtitem().get(0).getItemBarcode());
