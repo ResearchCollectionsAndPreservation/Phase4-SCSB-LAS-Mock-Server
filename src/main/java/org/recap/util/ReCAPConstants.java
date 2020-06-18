@@ -75,8 +75,8 @@ public final class ReCAPConstants {
     public static final String ASYNC_CONCURRENT_CONSUMERS = "?asyncConsumer=true&concurrentConsumers=";
     public static final String EMAIL_Q = "scsbactivemq:queue:CircEmailQ";
     public static final String SCSB_OUTGOING_QUEUE = "scsbactivemq:queue:scsbOutgoingQ";
-    public static final String LAS_OUTGOING_QUEUE = "scsbactivemq:queue:lasOutgoingQ";
-    public static final String LAS_INCOMING_QUEUE = "scsbactivemq:queue:lasIncomingQ";
+    public static final String LAS_OUTGOING_QUEUE = "lasactivemq:queue:lasOutgoingQ";
+    public static final String LAS_INCOMING_QUEUE = "lasactivemq:queue:lasIncomingQ";
     public static final String REQUEST_ITEM_LAS_STATUS_CHECK_QUEUE = "scsbactivemq:queue:RequestItemLasStatusCheckQ?asyncConsumer=true";
 
     public static final String PUL_REQUEST_TOPIC = "scsbactivemq:topic:PUL.RequestT";
