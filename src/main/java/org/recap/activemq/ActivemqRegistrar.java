@@ -30,7 +30,7 @@ public class ActivemqRegistrar {
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(connectionFactory);
         activeMQComponent.setTrustAllPackages(true);
-        camelContext.addComponent("scsbactivemq", activeMQComponent);
+        camelContext.addComponent("lasactivemq", activeMQComponent);
     }
 
 }
