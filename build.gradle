@@ -101,7 +101,7 @@ task scsbCircJavadocs(type: Javadoc) {
 sonarqube {
     properties {
         property "sonar.projectName", "LAS-MOCK-SERVER"
-	property "sonar.pullrequest.key",  "17"
+	property "sonar.pullrequest.key",  "18"
 	property "sonar.pullrequest.branch", "development"
 	property "sonar.pullrequest.base", "development1"
 	
