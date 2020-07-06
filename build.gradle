@@ -97,3 +97,10 @@ task scsbCircJavadocs(type: Javadoc) {
 	destinationDir = new File(home+"/scsb-javadocs/phase4-scsb-las-mock-server");
 
 }
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "LAS-MOCK-SERVER"
+    }
+}
+
