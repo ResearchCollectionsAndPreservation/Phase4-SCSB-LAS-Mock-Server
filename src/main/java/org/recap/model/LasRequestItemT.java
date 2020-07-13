@@ -3,24 +3,24 @@ package org.recap.model;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "las_request_item_t")
+@Table(name = "LAS_REQUEST_ITEM_T", schema = "recaplas", catalog = "recaplas")
 public class LasRequestItemT {
     @Id
-    @Column
+    @Column(name = "LAS_REQUEST_ITEM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lasRequestItemId;
 
-    @Column
+    @Column(name = "SCSB_REQUEST_ID")
     private String scsbRequestId;
 
-    @Column
+    @Column(name = "BARCODE")
     private String barcode;
 
-    @Column
+    @Column(name = "REQUEST_STATUS_CODE")
     private String requestStatus;
 
-    @Column
-    private String createdDate;
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
 
     public LasRequestItemT() {
     }
@@ -57,11 +57,11 @@ public class LasRequestItemT {
         this.requestStatus = requestStatus;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 }
