@@ -26,6 +26,7 @@ public class RequestItemQueueConsumer {
         getItemRequestService().processLASRetrieveRequest(body);
     }
     public void lasRequestEDDOnMessage(@Body String body) {
+        logger.info("Scsb Edd Message: {}", body);
         getItemRequestService().processLASEddRetrieveRequest(body);
     }
 

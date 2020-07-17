@@ -127,9 +127,18 @@ public class GFAServiceImpl implements GFAService{
         try {
             GFAEddItemRequest gfaEddItemRequest = om.readValue(body, GFAEddItemRequest.class);
             GFAEddItemResponse gfaEddItemResponse = new GFAEddItemResponse();
+            RetrieveItemEDDRequest retrieveEdd = new RetrieveItemEDDRequest();
+            TtitemEDDResponse ttitem = new TtitemEDDResponse();
+            ttitem.setItemBarcode(gfaEddItemRequest.getRetrieveEDD().getTtitem().get(0).getItemBarcode());
+            ttitem.setRequestId(gfaEddItemRequest.getRetrieveEDD().getTtitem().get(0).getRequestId());
+            ttitem.setErrorCode("");
+            ttitem.setErrorNote("");
+            retrieveEdd.setTtitem(Arrays.asList(ttitem));
+            gfaEddItemResponse.setRetrieveEDD(retrieveEdd);
             gfaEddItemResponse.setSuccess(true);
+            gfaEddItemResponse.setScrenMessage("Las Processed EDD Request Successfully");
             String responseJson = om.writeValueAsString(gfaEddItemResponse);
-            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
+            producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_EDD);
 
         } catch (Exception e) {
             e.printStackTrace();
