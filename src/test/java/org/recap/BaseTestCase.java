@@ -29,42 +29,42 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @Transactional
 @Rollback()
 public class BaseTestCase {
-	protected MockMvc mockMvc;
-	protected HttpMessageConverter mappingJackson2HttpMessageConverter;
-	protected MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-			MediaType.APPLICATION_JSON.getSubtype(),
-			Charset.forName("utf8"));
+    protected MockMvc mockMvc;
+    protected HttpMessageConverter mappingJackson2HttpMessageConverter;
+    protected MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+            MediaType.APPLICATION_JSON.getSubtype(),
+            Charset.forName("utf8"));
 
-	@Autowired
-	private WebApplicationContext webApplicationContext;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
-	@Autowired
-	public CamelContext camelContext;
+    @Autowired
+    public CamelContext camelContext;
 
-	@Autowired
-	public void setConverters(HttpMessageConverter<?>[] converters) {
-		this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream().filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().get();
-		Assert.assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
-	}
+    @Autowired
+    public void setConverters(HttpMessageConverter<?>[] converters) {
+        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream().filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().get();
+        Assert.assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
+    }
 
-	@Before
-	public void setup() throws Exception {
-		this.mockMvc = webAppContextSetup(webApplicationContext).build();
-	}
+    @Before
+    public void setup() throws Exception {
+        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+    }
 
-	protected String objectToJson(Object object) throws IOException {
-		MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-		this.mappingJackson2HttpMessageConverter.write(object, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-		return mockHttpOutputMessage.getBodyAsString();
-	}
+    protected String objectToJson(Object object) throws IOException {
+        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+        this.mappingJackson2HttpMessageConverter.write(object, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        return mockHttpOutputMessage.getBodyAsString();
+    }
 
-	protected Object jsonToObject(String json, Class clazz) throws IOException {
-		MockHttpInputMessage mockHttpInputMessage = new MockHttpInputMessage(json.getBytes());
-		return this.mappingJackson2HttpMessageConverter.read(clazz, mockHttpInputMessage);
-	}
+    protected Object jsonToObject(String json, Class clazz) throws IOException {
+        MockHttpInputMessage mockHttpInputMessage = new MockHttpInputMessage(json.getBytes());
+        return this.mappingJackson2HttpMessageConverter.read(clazz, mockHttpInputMessage);
+    }
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
 }

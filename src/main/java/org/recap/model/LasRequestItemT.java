@@ -1,7 +1,13 @@
 package org.recap.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "LAS_REQUEST_ITEM_T", schema = "recaplas", catalog = "recaplas")
 public class LasRequestItemT {
@@ -21,47 +27,4 @@ public class LasRequestItemT {
 
     @Column(name = "CREATED_DATE")
     private Date createdDate;
-
-    public LasRequestItemT() {
-    }
-
-    public int getLasRequestItemId() {
-        return lasRequestItemId;
-    }
-
-    public void setLasRequestItemId(int lasRequestItemId) {
-        this.lasRequestItemId = lasRequestItemId;
-    }
-
-    public String getScsbRequestId() {
-        return scsbRequestId;
-    }
-
-    public void setScsbRequestId(String scsbRequestId) {
-        this.scsbRequestId = scsbRequestId;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 }

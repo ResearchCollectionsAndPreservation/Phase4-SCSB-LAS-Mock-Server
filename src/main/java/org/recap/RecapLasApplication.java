@@ -8,8 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 public class RecapLasApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RecapLasApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RecapLasApplication.class, args);
+    }
 
 }

@@ -1,14 +1,8 @@
 package org.recap.request;
 
+import lombok.Data;
+
+@Data
 public class GFAPwiRequest {
-
     private GFAPwiDsItemRequest dsitem;
-
-    public GFAPwiDsItemRequest getDsitem() {
-        return dsitem;
-    }
-
-    public void setDsitem(GFAPwiDsItemRequest dsitem) {
-        this.dsitem = dsitem;
-    }
 }

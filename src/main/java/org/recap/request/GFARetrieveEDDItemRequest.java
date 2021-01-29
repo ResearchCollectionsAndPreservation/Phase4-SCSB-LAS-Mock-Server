@@ -3,6 +3,6 @@ package org.recap.request;
 import lombok.Data;
 
 @Data
-public class GFAEddItemRequest {
+public class GFARetrieveEDDItemRequest {
     private RetrieveItemEDDRequest dsitem;
 }

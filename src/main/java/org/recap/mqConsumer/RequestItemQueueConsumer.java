@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 public class RequestItemQueueConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestItemQueueConsumer.class);
@@ -21,10 +20,12 @@ public class RequestItemQueueConsumer {
     public RequestItemQueueConsumer(ItemRequestService itemRequestService) {
         this.itemRequestService = itemRequestService;
     }
+
     public void lasRequestRetrievalOnMessage(@Body String body) {
         logger.info("Scsb Retrieval Message: {}", body);
         getItemRequestService().processLASRetrieveRequest(body);
     }
+
     public void lasRequestEDDOnMessage(@Body String body) {
         logger.info("Scsb Edd Message: {}", body);
         getItemRequestService().processLASEddRetrieveRequest(body);

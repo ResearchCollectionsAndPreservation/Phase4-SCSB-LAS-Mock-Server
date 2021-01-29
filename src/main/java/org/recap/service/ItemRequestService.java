@@ -10,11 +10,11 @@ public class ItemRequestService {
     GFAService gfaService;
 
     public void processLASRetrieveRequest(String body) {
-
         gfaService.processLASRetrieveRequest(body);
     }
+
     public void processLASEddRetrieveRequest(String body) {
-         gfaService.processLASEDDRetrieveRequest(body);
+        gfaService.processLASEDDRetrieveRequest(body);
 
     }
 

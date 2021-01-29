@@ -1,14 +1,8 @@
 package org.recap.response;
 
+import lombok.Data;
+
+@Data
 public class GFAPwiResponse {
-
     private GFAPwiDsItemResponse dsitem;
-
-    public GFAPwiDsItemResponse getDsitem() {
-        return dsitem;
-    }
-
-    public void setDsitem(GFAPwiDsItemResponse dsitem) {
-        this.dsitem = dsitem;
-    }
 }
