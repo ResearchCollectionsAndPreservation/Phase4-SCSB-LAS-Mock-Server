@@ -1,15 +1,10 @@
 package org.recap.request;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class RetrieveItemEDDRequest {
     private List<TtitemEDDResponse> ttitem;
-
-    public List<TtitemEDDResponse> getTtitem() {
-        return ttitem;
-    }
-
-    public void setTtitem(List<TtitemEDDResponse> ttitem) {
-        this.ttitem = ttitem;
-    }
 }

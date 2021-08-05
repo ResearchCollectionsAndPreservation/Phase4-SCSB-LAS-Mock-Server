@@ -1,13 +1,8 @@
 package org.recap.request;
 
+import lombok.Data;
+
+@Data
 public class GFARetrieveItemRequest {
-    private RetrieveItemRequest retrieveItem;
-
-    public RetrieveItemRequest getRetrieveItem() {
-        return retrieveItem;
-    }
-
-    public void setRetrieveItem(RetrieveItemRequest retrieveItem) {
-        this.retrieveItem = retrieveItem;
-    }
+    private RetrieveItemRequest dsitem;
 }

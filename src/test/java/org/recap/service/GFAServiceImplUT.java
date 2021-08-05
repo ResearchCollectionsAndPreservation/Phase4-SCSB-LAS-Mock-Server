@@ -8,13 +8,12 @@ import org.recap.response.GFAEddItemResponse;
 import org.recap.response.GFARetrieveItemResponse;
 import org.recap.response.RetrieveItem;
 import org.recap.response.Ttitem;
-import org.recap.util.ReCAPConstants;
+import org.recap.util.ScsbConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 
 public class GFAServiceImplUT extends BaseTestCase {
-
     @Autowired
     private ProducerTemplate producerTemplate;
 
@@ -30,11 +29,11 @@ public class GFAServiceImplUT extends BaseTestCase {
         ttitem.setItemBarcode("123456");
         retrieveItem.setTtitem(Arrays.asList(ttitem));
         gfaRetrieveItemResponse.setSuccess(true);
-        gfaRetrieveItemResponse.setRetrieveItem(retrieveItem);
+        gfaRetrieveItemResponse.setDsitem(retrieveItem);
         gfaRetrieveItemResponse.setScrenMessage("Message Received");
         ObjectMapper objectMapper = new ObjectMapper();
         String responseJson = objectMapper.writeValueAsString(gfaRetrieveItemResponse);
-        producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_RETRIEVAL);
+        producerTemplate.sendBodyAndHeader(ScsbConstants.LAS_INCOMING_QUEUE, responseJson, ScsbConstants.REQUEST_TYPE_QUEUE_HEADER, ScsbConstants.REQUEST_TYPE_RETRIEVAL);
     }
 
     @Test
@@ -43,6 +42,6 @@ public class GFAServiceImplUT extends BaseTestCase {
         gfaEddItemResponse.setSuccess(true);
         ObjectMapper objectMapper = new ObjectMapper();
         String responseJson = objectMapper.writeValueAsString(gfaEddItemResponse);
-        producerTemplate.sendBodyAndHeader(ReCAPConstants.LAS_INCOMING_QUEUE, responseJson, ReCAPConstants.REQUEST_TYPE_QUEUE_HEADER, ReCAPConstants.REQUEST_TYPE_EDD);
+        producerTemplate.sendBodyAndHeader(ScsbConstants.LAS_INCOMING_QUEUE, responseJson, ScsbConstants.REQUEST_TYPE_QUEUE_HEADER, ScsbConstants.REQUEST_TYPE_EDD);
     }
 }

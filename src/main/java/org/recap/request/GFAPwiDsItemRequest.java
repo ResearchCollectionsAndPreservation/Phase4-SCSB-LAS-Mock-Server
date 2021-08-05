@@ -1,16 +1,10 @@
 package org.recap.request;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class GFAPwiDsItemRequest {
-
-    private List<GFAPwiTtItemRequest> ttitem = null;
-
-    public List<GFAPwiTtItemRequest> getTtitem() {
-        return ttitem;
-    }
-
-    public void setTtitem(List<GFAPwiTtItemRequest> ttitem) {
-        this.ttitem = ttitem;
-    }
+    private List<GFAPwiTtItemRequest> ttitem;
 }
