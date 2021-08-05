@@ -6,10 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 
 @PropertySource("classpath:application.properties")
 @SpringBootApplication
-public class RecapLasApplication {
+public class ScsbLasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RecapLasApplication.class, args);
+		SpringApplication.run(ScsbLasApplication.class, args);
 	}
 
 }

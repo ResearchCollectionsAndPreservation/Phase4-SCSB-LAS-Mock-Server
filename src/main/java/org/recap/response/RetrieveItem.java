@@ -1,17 +1,10 @@
 package org.recap.response;
 
-
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class RetrieveItem {
     private List<Ttitem> ttitem;
-
-    public List<Ttitem> getTtitem() {
-        return ttitem;
-    }
-
-    public void setTtitem(List<Ttitem> ttitem) {
-        this.ttitem = ttitem;
-    }
 }
