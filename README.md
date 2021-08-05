@@ -17,8 +17,13 @@ docker run --name phase4-scsb-mock-las-server -p 9103:9103 -e "ENV= -Dorg.apache
 
 ## Endpoints
 ims.server.status.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/lasStatus
+
 ims.item.status.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/itemStatus
+
 ims.item.retrieval.order.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/retrieveItem
+
 ims.item.edd.order.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/retrieveEDD
+
 ims.item.permanent.withdrawal.direct.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/permanentlyRetrieveItem
+
 ims.item.permanent.withdrawal.indirect.endpoint = http://localhost:9103/lasapi/rest/lasapiSvc/permanentlyRetrieveItemIndirect
