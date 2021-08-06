@@ -12,7 +12,7 @@ docker build -t phase4-scsb-las-mock-server .
 ```
 Run the container (example)
 ```
-docker run --name phase4-scsb-mock-las-server -p 9103:9103 -e "ENV= -Dorg.apache.activemq.SERIALIZABLE_PACKAGES="*" -Dspring.config.location=/vol/config/external-las-application.properties " -d phase4-scsb-mock-las-server
+docker run --name phase4-scsb-las-mock-server -p 9103:9103 -e "ENV= -Dorg.apache.activemq.SERIALIZABLE_PACKAGES="*" -Dspring.config.location=/vol/config/external-las-application.properties " -d phase4-scsb-las-mock-server
 ```
 
 ## Endpoints
