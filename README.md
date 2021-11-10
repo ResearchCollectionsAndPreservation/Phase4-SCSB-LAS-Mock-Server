@@ -1,6 +1,6 @@
 # LAS-Mock-Server
 
-    Once a request message is  placed to the request queue from SCSB-CIRC, the request message will  then be consumed by LAS mock Server. After doing some internal processing, LAS Mock Server will respond by sending a response message to the response queue. Later, SCSB-CIRC will consume the response message.
+  Once a request message is  placed to the request queue from SCSB-CIRC, the request message will  then be consumed by LAS mock Server. After doing some internal processing, LAS Mock Server will respond by sending a response message to the response queue. Later, SCSB-CIRC will consume the response message.
 
 ## Software Required
 
