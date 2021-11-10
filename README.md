@@ -11,7 +11,7 @@ Receives and responds to SCSB requests
 
 1. external-las-application properties
 
-      - spring.datasource.url=jdbc:mysql://<MysqlDOckerIP>:3306/recaplas?autoReconnect=true&serverTimezone=America/New_York&useSSL=false
+      - spring.datasource.url=jdbc:mysql://${MysqlDOckerIP}:3306/recaplas?autoReconnect=true&serverTimezone=America/New_York&useSSL=false
       - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
       - spring.datasource.username=
       - spring.datasource.password=
