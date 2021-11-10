@@ -18,6 +18,7 @@ Receives and responds to SCSB requests
       - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect 
   
   #ActiveMQ
+  
       - activemq.broker.url=tcp://localhost:61613
       - activemq.jmx.service.url=service:jmx:rmi:///jndi/rmi://127.0.0.1:1099/jmxrmi
       - activemq.web.console.url=http://localhost:8161
