@@ -39,7 +39,7 @@ Receives and responds to SCSB requests
 
 Download the Project , navigate inside project folder and build the project using below command
 
-**./gradlew clean build -x test**
+**sudo ./gradlew clean build -x test**
 
 ## Docker Image Creation
 
