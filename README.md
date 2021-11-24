@@ -11,29 +11,29 @@
 
 1. external-las-application properties
 
-      - spring.datasource.url=jdbc:mysql://${MysqlDOckerIP}:3306/recaplas?autoReconnect=true&serverTimezone=America/New_York&useSSL=false
-      - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+      - spring.datasource.url=<jdbc-url>
+      - spring.datasource.driver-class-name=<DB Driver class>
       - spring.datasource.username=
       - spring.datasource.password=
-      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect 
+      - spring.jpa.properties.hibernate.dialect=<DB Dialect> 
   
   #ActiveMQ
   
-      - activemq.broker.url=tcp://localhost:61613
-      - activemq.jmx.service.url=service:jmx:rmi:///jndi/rmi://127.0.0.1:1099/jmxrmi
-      - activemq.web.console.url=http://localhost:8161
-      - activemq.credentials=admin:admin 
-      - activemq.jolokia.api.url=/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost,destinationType=Queue,destinationName=
+      - activemq.broker.url=<activemq Brocker URL>
+      - activemq.jmx.service.url=<JMX URL>
+      - activemq.web.console.url=<Console URL>
+      - activemq.credentials=<user> 
+      - activemq.jolokia.api.url= <jolokia URL>
       - activemq.jolokia.api.queue.size.attribute=/QueueSize
       
 2. Update the below Property Values in scsb_properteis_t table.
   
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/lasStatus' WHERE `P_KEY`='ims.server.status.endpoint';
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/itemStatus' WHERE `P_KEY`='ims.item.status.endpoint';
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/retrieveItem' WHERE `P_KEY`='ims.item.retrieval.order.endpoint';
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/retrieveEDD' WHERE `P_KEY`='ims.item.edd.order.endpoint';
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/permanentlyRetrieveItem' WHERE `P_KEY`='ims.item.permanent.withdrawal.direct.endpoint';
-      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='http://${DOCKERIPOFLASMOCKSERVER}:9104/lasapi/rest/lasapiSvc/permanentlyRetrieveItemIndirect' WHERE `P_KEY`='ims.item.permanent.withdrawal.indirect.endpoint'; 
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/lasStatus' WHERE `P_KEY`='ims.server.status.endpoint';
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/itemStatus' WHERE `P_KEY`='ims.item.status.endpoint';
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/retrieveItem' WHERE `P_KEY`='ims.item.retrieval.order.endpoint';
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/retrieveEDD' WHERE `P_KEY`='ims.item.edd.order.endpoint';
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/permanentlyRetrieveItem' WHERE `P_KEY`='ims.item.permanent.withdrawal.direct.endpoint';
+      - UPDATE `recap`.`scsb_properties_t` SET `P_VALUE`='<DOCKER IP OF LAS MOCK SERVER:Port>/lasapi/rest/lasapiSvc/permanentlyRetrieveItemIndirect' WHERE `P_KEY`='ims.item.permanent.withdrawal.indirect.endpoint'; 
   
 ## Build
 
@@ -51,4 +51,4 @@ Naviagte Inside project folder where Dockerfile is present and Execute the below
 
 User the below command to Run the Docker
   
-**sudo docker run --name phase4-scsb-las-mock-server -v /data:/recap-vol -p 9104:9104 -e "ENV= -Dorg.apache.activemq.SERIALIZABLE_PACKAGES="*" -Dspring.config.location=/recap-vol/config/external-las-application.properties " -d phase4-scsb-las-mock-server**
+**sudo docker run --name phase4-scsb-las-mock-server -v <volume> -p <port configuration> -e "ENV= -Dorg.apache.activemq.SERIALIZABLE_PACKAGES="*" -Dspring.config.location=<Config File Location> " -d phase4-scsb-las-mock-server**
